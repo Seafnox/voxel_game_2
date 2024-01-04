@@ -3,9 +3,8 @@
   "version": "0.0.1",
   "description": "Simple voxel game",
   "main": "main.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "author": "kirill9990@gmail.com",
+  "license": "MPL-2.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:Seafnox/voxel_game_2.git"
@@ -15,9 +14,14 @@
     "typescript",
     "game"
   ],
-  "author": "kirill9990@gmail.com",
-  "license": "MPL-2.0",
-  "devDpendencies": {
+  "scripts": {
+    "serve": "webpack serve",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
+  },
+  "devDependencies": {
     "@types/stats.js": "0.17.0",
     "@types/three": "0.81.1",
     "@types/uuid": "9.0.0",
