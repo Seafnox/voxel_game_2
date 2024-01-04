@@ -1,2 +1,22 @@
-# voxel_game_2
-Simple voxel game example without backend. work in progress
+# VoxelGame2
+
+VoxelGame2 is second try to create simple one person game with possibilities for expand to multiplayer game.
+
+
+
+## How to build / run
+
+Install the typescript compiler.
+
+```
+npm install typescript -g
+```
+
+Run initial script
+
+npm install
+npm run serve
+
+## License
+
+Mozilla Public License 2.0 (see the LICENSE file)
