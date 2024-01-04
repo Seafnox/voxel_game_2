@@ -17,6 +17,12 @@ Run initial script
 npm install
 npm run serve
 
+## Features
+
+* [ ]  Add Player Mesh
+* [ ]  Add Player Texture
+* [ ]
+
 ## License
 
 Mozilla Public License 2.0 (see the LICENSE file)
