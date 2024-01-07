@@ -8,6 +8,5 @@ export class Initializer<TComponentMap extends ComponentMap> {
     this.entityManager = em;
   }
 
-  initialize(entity: string, componentMap: TComponentMap): void {
-  }
+  initialize(entity: string, componentMap: Partial<TComponentMap>): void {}
 }
