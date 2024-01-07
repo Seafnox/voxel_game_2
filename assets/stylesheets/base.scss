@@ -20,7 +20,7 @@ html, body {
 }
 
 .box {
-    background: url('../blocks/5.png');
+    background: url('../background.png');
     padding: 1vw 1.5vw 1.5vw 1.5vw;
     border-radius: 5px;
     border: 5px solid rgba(0, 0, 0, 0.15);
@@ -88,7 +88,7 @@ html, body {
 }
 
 .overlay-info-image {
-  background: url('../images/keyboard.svg');
+  background: url('../keyboard.svg');
   border-radius: 0.2vw;
   width: 30vw;
   height: 11vw;

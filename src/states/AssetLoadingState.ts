@@ -76,13 +76,16 @@ export class AssetLoadingState extends State {
     this.assetManager.addSound('dig', digSound);
     this.assetManager.addSound('pickup', pickupSound);
 
-    this.assetManager.load((description: string, progress: number) => {
-      this.progressDescription = description;
-      this.progress = progress;
-
-      if (this.progress >= 1.0) {
+    this.assetManager.load(
+      (description: string, progress: number) => {
+        console.log(`this.assetManager.progress ${description} ${progress}`);
+        this.progressDescription = description;
+        this.progress = progress;
+      },
+      () => {
+        console.log(`this.assetManager.load is Done`);
         this.transitionTo(new MenuState());
       }
-    });
+    );
   }
 }

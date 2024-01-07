@@ -75,22 +75,31 @@ export class AssetManager {
   }
 
   load(progress: ProgressFn, done: DoneFn) {
-    if (this.isLoaded) return;
+    if (this.isLoaded) {
+      progress('complete', 1.0);
+      setTimeout(done);
+      return;
+    }
 
     this.filesDone = 0;
     this.totalFiles = this.getQueueLength() + 1;
 
+    console.log('start loadTextures', this.filesDone, '/', this.totalFiles);
     this.loadTextures(progress, () => {
+      console.log('start loadMeshes', this.filesDone, '/', this.totalFiles);
       this.queue.textures = [];
       this.loadMeshes(progress, () => {
+        console.log('start loadMusic', this.filesDone, '/', this.totalFiles);
         this.queue.meshes = [];
         this.loadMusic(progress, () => {
+          console.log('start loadSounds', this.filesDone, '/', this.totalFiles);
           this.queue.music = [];
           this.loadSounds(progress, () => {
             this.queue.sounds = [];
+            console.log('complete loading', this.filesDone, '/', this.totalFiles);
             this.isLoaded = true;
             progress('complete', 1.0);
-            done();
+            setTimeout(done);
           });
         });
       });
@@ -99,6 +108,10 @@ export class AssetManager {
 
   private loadTextures(progress: ProgressFn, done: DoneFn) {
     let filesDone = 0;
+    if (!this.queue.textures.length) {
+      setTimeout(done);
+      return;
+    }
 
     this.queue.textures.forEach(pair => {
       let [name, url] = pair;
@@ -111,13 +124,17 @@ export class AssetManager {
         this.filesDone++;
         progress('textures', this.filesDone / this.totalFiles);
 
-        if (filesDone == this.queue.textures.length) done();
+        if (filesDone == this.queue.textures.length) setTimeout(done);
       });
     });
   }
 
   private loadMeshes(progress: ProgressFn, done: DoneFn) {
     let filesDone = 0;
+    if (!this.queue.meshes.length) {
+      setTimeout(done);
+      return;
+    }
 
     this.queue.meshes.forEach(pair => {
       let [name, url] = pair;
@@ -137,13 +154,17 @@ export class AssetManager {
         this.filesDone++;
         progress('models', this.filesDone / this.totalFiles);
 
-        if (filesDone == this.queue.meshes.length) done();
+        if (filesDone == this.queue.meshes.length) setTimeout(done);
       });
     });
   }
 
   private loadMusic(progress: ProgressFn, done: DoneFn) {
     let filesDone = 0;
+    if (!this.queue.music.length) {
+      setTimeout(done);
+      return;
+    }
 
     this.queue.music.forEach(pair => {
       let [name, url] = pair;
@@ -160,7 +181,7 @@ export class AssetManager {
         progress('music', this.filesDone / this.totalFiles);
         el.removeEventListener('canplaythrough', canPlayThrough, false);
 
-        if (filesDone == this.queue.music.length) done();
+        if (filesDone == this.queue.music.length) setTimeout(done);
       };
 
       el.addEventListener('canplaythrough', canPlayThrough, false);
@@ -170,6 +191,10 @@ export class AssetManager {
   private loadSounds(progress: ProgressFn, done: DoneFn) {
     let filesDone = 0;
     let audioCtx = new AudioContext();
+    if (!this.queue.sounds.length) {
+      setTimeout(done);
+      return;
+    }
 
     this.queue.sounds.forEach(pair => {
       let [name, url] = pair;
@@ -184,7 +209,7 @@ export class AssetManager {
           this.filesDone++;
           progress('sounds', this.filesDone / this.totalFiles);
 
-          if (filesDone == this.queue.sounds.length) done();
+          if (filesDone == this.queue.sounds.length) setTimeout(done);
         });
       });
       req.open('GET', url);
