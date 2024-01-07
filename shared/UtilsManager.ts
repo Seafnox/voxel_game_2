@@ -7,6 +7,5 @@ export class UtilsManager {
     public uuid: UuidGenerator,
     public performanceNow: PerformanceNow,
     public logger: Logger,
-  ) {
-  }
+  ) {}
 }
