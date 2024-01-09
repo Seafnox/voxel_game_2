@@ -1,9 +1,9 @@
 import { ApplicationContext } from 'src/ApplicationContext';
-import { State } from './State';
+import { Page } from 'src/states/Page';
 
-export class StateManager {
-  private state: State | undefined;
-  private nextState: State | undefined;
+export class PageManager {
+  private page: Page | undefined;
+  private nextPage: Page | undefined;
   private currentTime = performance.now();
 
   constructor(
@@ -13,27 +13,27 @@ export class StateManager {
     this.registerEvents();
   }
 
-  setState(nextState: State) {
-    if (this.state) {
-      this.state.onExit();
+  set(nextPage: Page) {
+    if (this.page) {
+      this.page.onExit();
     }
-    this.nextState = nextState;
-    this.nextState.stateManager = this;
-    this.nextState.context = this.context;
+    this.nextPage = nextPage;
+    this.nextPage.pageManager = this;
+    this.nextPage.context = this.context;
   }
 
   private update() {
-    if (this.nextState) {
-      this.state = this.nextState;
-      this.state.onEnter();
-      this.nextState = undefined;
+    if (this.nextPage) {
+      this.page = this.nextPage;
+      this.page.onEnter();
+      this.nextPage = undefined;
     }
 
-    if (this.state) {
+    if (this.page) {
       let newTime = performance.now();
       let dt = (newTime - this.currentTime) / 1000;
 
-      this.state.tick(dt);
+      this.page.tick(dt);
       this.currentTime = newTime;
     }
 
@@ -42,11 +42,11 @@ export class StateManager {
 
   private registerEvents() {
     window.addEventListener('resize', evt => {
-      this.state?.onResize(evt);
+      this.page?.onResize(evt);
     }, false);
 
     document.addEventListener('pointerlockchange', evt => {
-      this.state?.onPointerLockChange(evt);
+      this.page?.onPointerLockChange(evt);
     }, false);
   }
 }

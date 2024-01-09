@@ -1,41 +1,10 @@
 import { HTMLParser } from 'src/HTMLParser';
-import { State } from './State';
-import { MenuState } from './MenuState';
+import { Page } from 'src/states/Page';
+import { settingsHtml } from 'src/states/html/SettingsHtml';
+import { MenuPage } from 'src/states/MenuPage';
 import '../../assets/stylesheets/settings.scss';
 
-const html = `
-    <div class="menu menu-settings">
-        <div class="box animated bounceIn">
-            <ul>
-                <li>
-                    <h3>Graphics settings</h3>
-                </li>
-
-                <li>
-                    <label><input class="settings-antialias" type="checkbox"> Antialias</label> <br>
-                    <small>Enabling / disabling antialiasing requires a page refresh to take effect.</small>
-                </li>
-
-                <li>
-                    <h3>Audio settings</h3>
-                </li>
-
-                <li>
-                    <span>Sound effect volume:</span>
-                    <input class="settings-sound" type="range" min="0" max="1" step="0.05">
-                </li>
-
-                <li>
-                    <span>Music volume:</span>
-                    <input class="settings-music" type="range" min="0" max="1" step="0.05">
-                </li>
-            </ul>
-            <button class="button btn-menu">Return to menu</button>
-        </div>
-    </div>
-`;
-
-export class SettingsState extends State {
+export class SettingsPage extends Page {
   // TODO create GuiManager with controlling through state. remove Nodes from state
   private guiNode: Element;
 
@@ -43,11 +12,11 @@ export class SettingsState extends State {
     super();
 
     let parser = new HTMLParser();
-    this.guiNode = parser.parse(html);
+    this.guiNode = parser.parse(settingsHtml);
 
     // TODO encapsulate selector into HtmlParser instance with strict getter
     this.guiNode.querySelector('.btn-menu')?.addEventListener('click', () => {
-      this.transitionTo(new MenuState());
+      this.transitionTo(new MenuPage());
     });
 
     this.registerEvents();

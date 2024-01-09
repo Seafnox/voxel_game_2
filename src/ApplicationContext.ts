@@ -1,5 +1,5 @@
 import { Settings } from 'src/Settings';
-import { StateManager } from 'src/states/StateManager';
+import { PageManager } from 'src/states/PageManager';
 import { AssetManager } from 'src/three/AssetManager';
 import { WebGLRenderer } from 'three';
 
@@ -19,7 +19,7 @@ export class ApplicationContext {
   renderer = new WebGLRenderer({
     antialias: this.settings.antialias
   });
-  stateManager: StateManager;
+  pageManager: PageManager;
   assetManager = new AssetManager(this.audioContext, this.gain);
 
 
@@ -27,7 +27,7 @@ export class ApplicationContext {
     // One audio context and gain node is passed to all sounds.
     this.gain.connect(this.audioContext.destination);
 
-    this.stateManager = new StateManager(this);
+    this.pageManager = new PageManager(this);
   }
 
 

@@ -1,44 +1,11 @@
 import { HTMLParser } from 'src/HTMLParser';
-import { State } from './State';
-// import { PlayState } from "./PlayState";
-import { SettingsState } from './SettingsState';
+import { menuHtml } from 'src/states/html/MenuHtml';
+import { Page } from 'src/states/Page';
+//import { PlayPage } from "./PlayPage";
+import { SettingsPage } from 'src/states/SettingsPage';
 import '../../assets/stylesheets/menu.scss';
 
-const html = `
-    <div class="menu">
-        <div id="mainmenu">
-            <div class="warning" style="display: none">
-                Your browser has poor support for some technologies used in this game.
-                It may still be playable, but please consider upgrading your browser.
-            </div>
-            <div class="error" style="display: none">
-                Your browser does not support all the technologies required to play this game,
-                and it will most likely not work. Please upgrade your browser.
-            </div>
-            <ul class="box animated bounceIn">
-                <li>
-                    <span>Player name:</span>
-                    <input type="text" class="input" id="name" placeholder="Name">
-                </li>
-
-                <li>
-                    <span>Server:</span>
-                    <input type="text" class="input" id="server" placeholder="Server address and port">
-                </li>
-
-                <li>
-                    <button class="button btn-join">Join server</button>
-                </li>
-
-                <li>
-                    <button class="button btn-settings">Settings</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-`;
-
-export class MenuState extends State {
+export class MenuPage extends Page {
   // TODO create GuiManager with controlling through state. remove Nodes from state
   private menuNode: Element;
 
@@ -46,7 +13,7 @@ export class MenuState extends State {
     super();
 
     let parser = new HTMLParser();
-    this.menuNode = parser.parse(html);
+    this.menuNode = parser.parse(menuHtml);
   }
 
   onEnter() {
@@ -66,7 +33,7 @@ export class MenuState extends State {
     this.menuNode.querySelector('.btn-join')?.addEventListener('click', this.join.bind(this));
     // TODO encapsulate selector into HtmlParser instance with strict getter
     this.menuNode.querySelector('.btn-settings')?.addEventListener('click', () => {
-      this.transitionTo(new SettingsState());
+      this.transitionTo(new SettingsPage());
     });
 
     let audio = this.assetManager.getMusic('music');
@@ -101,7 +68,7 @@ export class MenuState extends State {
     if (this.settings) this.settings.serverAddress = serverAddress;
 
     // TODO make transition to Player state
-    // this.transitionTo(new PlayState());
+//     this.transitionTo(new PlayPage());
   }
 
   tick(dt: number): void {

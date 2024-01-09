@@ -1,38 +1,12 @@
 // import { Server } from '../Server';
-// import { World } from '../World';
-import { State } from './State';
 import { HTMLParser } from 'src/HTMLParser';
-import { MenuState } from './MenuState';
-import { SettingsState } from './SettingsState';
+// import { World } from '../World';
+import { Page } from 'src/states/Page';
+import { playHtml } from 'src/states/html/PlayHtml';
+import { SettingsPage } from 'src/states/SettingsPage';
+import { MenuPage } from 'src/states/MenuPage';
 
-const html = `
-    <div id="gui">
-        <div id="overlay">
-            <div class="overlay-wrapper">
-                <div class="overlay-info">
-                    <div class="overlay-info-image"></div>
-                    <ul>
-                        <li>Select blocks: Number keys</li>
-                        <li>Move: W/A/S/D</li>
-                        <li>Jump: Space</li>
-                        <li>Chat: T</li>
-                        <li>Dig: Left click</li>
-                        <li>Place block: Right click</li>
-                    </ul>
-                    <h3>Click to start playing</h3>
-                </div>
-
-                <div class="overlay-buttons">
-                    <button class="button btn-settings">Settings</button>
-                    <button class="button btn-leave">Leave game</button>
-                </div>
-            </div>
-        </div>
-        <div id="crosshair"></div>
-    </div>
-`;
-
-export class PlayState extends State {
+export class PlayPage extends Page {
   // TODO create GuiManager with controlling through state. remove Nodes from state
   private guiNode: Element;
   private stats: Stats;
@@ -49,15 +23,15 @@ export class PlayState extends State {
     super();
 
     let parser = new HTMLParser();
-    this.guiNode = parser.parse(html);
+    this.guiNode = parser.parse(playHtml);
 
     // TODO encapsulate selector into HtmlParser instance with strict getter
     this.guiNode.querySelector('.btn-leave')?.addEventListener('click', () => {
-      this.transitionTo(new MenuState());
+      this.transitionTo(new MenuPage());
     });
     // TODO encapsulate selector into HtmlParser instance with strict getter
     this.guiNode.querySelector('.btn-settings')?.addEventListener('click', () => {
-      this.transitionTo(new SettingsState());
+      this.transitionTo(new SettingsPage());
     });
 
     // Debug performance. TODO: Should go in DebugTextSystem.

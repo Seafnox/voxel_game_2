@@ -1,19 +1,13 @@
-import { State } from './State';
-import { MenuState } from './MenuState';
 import { HTMLParser } from 'src/HTMLParser';
-import backgroundMusic from '../../assets/sound/music.ogg';
-import walkSound from '../../assets/sound/walk.ogg';
+import { assetLoadingHtml } from 'src/states/html/AssetLoadingHtml';
+import { MenuPage } from 'src/states/MenuPage';
+import { Page } from 'src/states/Page';
 import digSound from '../../assets/sound/dig.ogg';
+import backgroundMusic from '../../assets/sound/music.ogg';
 import pickupSound from '../../assets/sound/pickup.ogg';
+import walkSound from '../../assets/sound/walk.ogg';
 
-const html = `
-    <div id="loader">
-        <style></style>
-        <progress value="0" max="1"></progress>
-    </div>
-`;
-
-export class AssetLoadingState extends State {
+export class AssetLoadingPage extends Page {
   private progressDescription = '';
   private progress = 0;
 
@@ -27,7 +21,7 @@ export class AssetLoadingState extends State {
   constructor() {
     super();
     let parser = new HTMLParser();
-    this.loaderNode = parser.parse(html);
+    this.loaderNode = parser.parse(assetLoadingHtml);
   }
 
   onEnter() {
@@ -84,7 +78,7 @@ export class AssetLoadingState extends State {
       },
       () => {
         console.log(`this.assetManager.load is Done`);
-        this.transitionTo(new MenuState());
+        this.transitionTo(new MenuPage());
       }
     );
   }

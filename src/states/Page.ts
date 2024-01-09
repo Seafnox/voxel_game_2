@@ -1,10 +1,12 @@
 import { ApplicationContext } from 'src/ApplicationContext';
 import { Settings } from 'src/Settings';
 import { AssetManager } from 'src/three/AssetManager';
-import { StateManager } from './StateManager';
+import { PageManager } from 'src/states/PageManager';
 
-export abstract class State {
-  stateManager: StateManager | undefined;
+export abstract class Page {
+  // TODO make strict through constructor
+  pageManager: PageManager | undefined;
+  // TODO make strict through constructor
   context: ApplicationContext | undefined;
 
   // TODO make strict getter
@@ -23,17 +25,15 @@ export abstract class State {
 
   abstract onExit(): void;
 
-  transitionTo(nextState: State) {
-    this.stateManager?.setState(nextState);
+  transitionTo(nextState: Page) {
+    this.pageManager?.set(nextState);
   }
 
   // Provide no-op implementations of events.
   // StateManager adds event listeners on document / window so
   // State's child classes get an easier job cleaning themselves up.
   // Avoids a lot of potential leaks.
-  onResize(evt: Event) {
-  }
+  onResize(evt: Event) {}
 
-  onPointerLockChange(evt: Event) {
-  }
+  onPointerLockChange(evt: Event) {}
 }
