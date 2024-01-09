@@ -1,4 +1,6 @@
 import { ApplicationContext } from 'src/ApplicationContext';
+import { Settings } from 'src/Settings';
+import { AssetManager } from 'src/three/AssetManager';
 import { StateManager } from './StateManager';
 
 export abstract class State {
@@ -6,12 +8,12 @@ export abstract class State {
   context: ApplicationContext | undefined;
 
   // TODO make strict getter
-  get assetManager() {
+  get assetManager(): AssetManager | undefined {
     return this.context?.assetManager;
   }
 
   // TODO make strict getter
-  get settings() {
+  get settings(): Settings | undefined {
     return this.context?.settings;
   }
 

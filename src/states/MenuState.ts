@@ -58,9 +58,9 @@ export class MenuState extends State {
     document.body.appendChild(this.menuNode);
 
     // TODO encapsulate selector into HtmlParser instance with strict getter
-    let nameInput = this.menuNode.querySelector('#name') as HTMLInputElement;
-    nameInput.value = localStorage.getItem('name') || `Player${Math.round(Math.random() * 100000)}`;
-    (this.menuNode.querySelector('#server') as HTMLInputElement).value = `${location.hostname}:8081`;
+    (this.menuNode.querySelector('#name') as HTMLInputElement).value = this.settings?.playerName;
+    // TODO encapsulate selector into HtmlParser instance with strict getter
+    (this.menuNode.querySelector('#server') as HTMLInputElement).value = this.settings?.serverAddress;
 
     // TODO encapsulate selector into HtmlParser instance with strict getter
     this.menuNode.querySelector('.btn-join')?.addEventListener('click', this.join.bind(this));
@@ -91,17 +91,17 @@ export class MenuState extends State {
 
   private join() {
     // TODO encapsulate selector into HtmlParser instance with strict getter
-    let name = (this.menuNode.querySelector('#name') as HTMLInputElement).value;
-    if (name.length === 0) return;
-    localStorage.setItem('name', name);
+    let playerName = (this.menuNode.querySelector('#name') as HTMLInputElement).value;
+    if (playerName.length === 0) return;
+    if (this.settings) this.settings.playerName = playerName;
 
     // TODO encapsulate selector into HtmlParser instance with strict getter
     let serverAddress = (this.menuNode.querySelector('#server') as HTMLInputElement).value;
     if (serverAddress.length === 0) return;
+    if (this.settings) this.settings.serverAddress = serverAddress;
 
     // TODO make transition to Player state
-
-    // this.transitionTo(new PlayState(serverAddress));
+    // this.transitionTo(new PlayState());
   }
 
   tick(dt: number): void {
