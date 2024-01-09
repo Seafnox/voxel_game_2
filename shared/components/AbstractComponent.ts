@@ -5,6 +5,7 @@ export interface AbstractComponentData {
   ID: ComponentId;
 }
 
+// TODO no needed additional typing
 export class AbstractComponent<T extends AbstractComponentData> implements AbstractComponentData {
   static ID: ComponentId = ComponentId.None;
   dirtyFields: Set<keyof T> = new Set<keyof T>();

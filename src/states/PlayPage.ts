@@ -1,10 +1,8 @@
-// import { Server } from '../Server';
-import { HTMLParser } from 'src/HTMLParser';
-// import { World } from '../World';
-import { Page } from 'src/states/Page';
-import { playHtml } from 'src/states/html/PlayHtml';
-import { SettingsPage } from 'src/states/SettingsPage';
-import { MenuPage } from 'src/states/MenuPage';
+import { HTMLParser } from '../HTMLParser';
+import { Page } from './Page';
+import { playHtml } from './html/PlayHtml';
+import { SettingsPage } from './SettingsPage';
+import { MenuPage } from './MenuPage';
 
 export class PlayPage extends Page {
   // TODO create GuiManager with controlling through state. remove Nodes from state
@@ -16,10 +14,7 @@ export class PlayPage extends Page {
 
   private isRunning: boolean = false;
 
-  constructor(
-    // TODO move serverAddress into settings
-    // private serverAddress: string // Server passed in from menu state.
-  ) {
+  constructor() {
     super();
 
     let parser = new HTMLParser();
@@ -48,14 +43,8 @@ export class PlayPage extends Page {
 
   // TODO create server intialization manager with subscribe
   onEnter() {
-//    this.server = new Server(this, this.serverAddress, () => {
-//      console.log('WS connect');
-//      this.initRenderer();
-//      this.world = new World(this, this.guiNode);
-//      this.isRunning = true;
-//
-//      document.body.appendChild(this.guiNode);
-//    });
+    this.context?.startServer();
+    this.registerCanvasEvents();
   }
 
   onExit() {
@@ -79,15 +68,6 @@ export class PlayPage extends Page {
     // TODO create server intialization manager with subscribe
     // this.renderer.render(this.world.scene, this.world.camera);
     this.stats.end();
-  }
-
-  // Init
-  initRenderer() {
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setClearColor(0xBFF0FF);
-
-    document.body.appendChild(this.renderer.domElement);
-    this.registerCanvasEvents();
   }
 
   // Events

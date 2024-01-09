@@ -3,9 +3,9 @@ import { System } from '../System';
 import { Initializer } from '../Initializer';
 import { EntityManager } from '../EntityManager';
 import { EntityMessage, ComponentMap } from '../EntityMessage';
-import { ComponentEventEmitter } from 'shared/ComponentEventEmitter';
+import { ComponentEventEmitter } from '../ComponentEventEmitter';
 
-export default class InitializerSystem<TComponentMap extends ComponentMap> extends System {
+export class InitializerSystem<TComponentMap extends ComponentMap> extends System {
   private componentQueue = new Map<ComponentId, EntityMessage<Partial<TComponentMap>>[]>();
   private initializers = new Map<ComponentId, Initializer<TComponentMap>>();
   private eventEmitter: ComponentEventEmitter<TComponentMap>;

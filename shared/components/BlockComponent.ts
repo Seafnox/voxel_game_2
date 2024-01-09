@@ -1,4 +1,4 @@
-import { SerializableComponent, SerializableComponentData } from 'shared/components/SerializableComponent';
+import { SerializableComponent, SerializableComponentData } from './SerializableComponent';
 import { BlockId } from '../constants/BlockId';
 import { ComponentId } from '../constants/ComponentId';
 

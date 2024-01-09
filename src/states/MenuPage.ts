@@ -1,8 +1,8 @@
-import { HTMLParser } from 'src/HTMLParser';
-import { menuHtml } from 'src/states/html/MenuHtml';
-import { Page } from 'src/states/Page';
-//import { PlayPage } from "./PlayPage";
-import { SettingsPage } from 'src/states/SettingsPage';
+import { HTMLParser } from '../HTMLParser';
+import { menuHtml } from './html/MenuHtml';
+import { Page } from './Page';
+import { PlayPage } from "./PlayPage";
+import { SettingsPage } from './SettingsPage';
 import '../../assets/stylesheets/menu.scss';
 
 export class MenuPage extends Page {
@@ -39,7 +39,7 @@ export class MenuPage extends Page {
     let audio = this.assetManager.getMusic('music');
     audio.loop = true;
     audio.volume = this.settings.musicVolume;
-    audio.play().catch(e => {
+    audio.play().catch(() => {
       window.addEventListener('click', () => {
         audio.play();
       }, {
@@ -67,10 +67,8 @@ export class MenuPage extends Page {
     if (serverAddress.length === 0) return;
     if (this.settings) this.settings.serverAddress = serverAddress;
 
-    // TODO make transition to Player state
-//     this.transitionTo(new PlayPage());
+    this.transitionTo(new PlayPage());
   }
 
-  tick(dt: number): void {
-  }
+  tick(dt: number): void {}
 }

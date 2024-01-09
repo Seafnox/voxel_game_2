@@ -8,6 +8,7 @@ export class Settings {
   private serverAddressProperty: string = 'serverAddress';
   serverAddress = localStorage.getItem(this.serverAddressProperty) || `${location.hostname}:8081`;
   private _soundVolume: number;
+  isRunning = false;
 
   constructor(
     public audioContext: AudioContext,

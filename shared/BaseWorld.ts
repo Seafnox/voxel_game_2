@@ -1,5 +1,5 @@
 import { ActionManager } from './actions/ActionManager';
-import { registerSharedComponents } from 'shared/components/RegisterSharedComponents';
+import { registerSharedComponents } from './components/RegisterSharedComponents';
 import { SystemOrder } from './constants/SystemOrder';
 import { EntityManager } from './EntityManager';
 import { System } from './System';
@@ -22,6 +22,7 @@ export abstract class BaseWorld {
 
   constructor(utilsManager: UtilsManager) {
     let entityManager = new EntityManager(utilsManager);
+    // FIXME make overrided method
     registerSharedComponents(entityManager);
 
     this.entityManager = entityManager;

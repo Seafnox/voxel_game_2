@@ -1,7 +1,7 @@
 import { ComponentId } from '../constants/ComponentId';
 import { terrainChunkSize } from '../constants/interaction.constants';
 import { Position } from '../Position';
-import { AbstractComponent, AbstractComponentData } from 'shared/components/AbstractComponent';
+import { AbstractComponent, AbstractComponentData } from './AbstractComponent';
 
 export interface TerrainChunkComponentData extends AbstractComponentData, Position {
     data: Uint8Array;

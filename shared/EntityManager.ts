@@ -1,6 +1,6 @@
-import { AbstractComponent, AbstractComponentData } from 'shared/components/AbstractComponent';
-import { SerializableComponent } from 'shared/components/SerializableComponent';
-import { entityManagerEventMap, EntityManagerEvent } from 'shared/EntityManagerEvent';
+import { AbstractComponent, AbstractComponentData } from './components/AbstractComponent';
+import { SerializableComponent } from './components/SerializableComponent';
+import { entityManagerEventMap, EntityManagerEvent } from './EntityManagerEvent';
 import { ComponentId, componentNames } from './constants/ComponentId';
 import { EntityMessage, ComponentMap } from './EntityMessage';
 import { Logger } from './Logger';

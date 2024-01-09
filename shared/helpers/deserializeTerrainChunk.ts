@@ -1,4 +1,4 @@
-import { TerrainChunkComponent } from 'shared/components/TerrainChunkComponent';
+import { TerrainChunkComponent } from '../components/TerrainChunkComponent';
 
 export const deserializeTerrainChunk = (data: ArrayBuffer): [string, TerrainChunkComponent] => {
   let view = new DataView(data);

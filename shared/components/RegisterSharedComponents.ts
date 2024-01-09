@@ -1,17 +1,17 @@
 import { EntityManager } from '../EntityManager';
-import { BlockComponent } from 'shared/components/BlockComponent';
-import { ChatMessageComponent } from 'shared/components/ChatMessageComponent';
-import { ChunkRequestComponent } from 'shared/components/ChunkRequestComponent';
-import { CurrentPlayerComponent } from 'shared/components/CurrentPlayerComponent';
-import { InputComponent } from 'shared/components/InputComponent';
-import { InventoryComponent } from 'shared/components/InventoryComponent';
-import { OnGroundComponent } from 'shared/components/OnGroundComponent';
-import { PhysicsComponent } from 'shared/components/PhysicsComponent';
-import { PlayerComponent } from 'shared/components/PlayerComponent';
-import { PositionComponent } from 'shared/components/PositionComponent';
-import { RotationComponent } from 'shared/components/RotationComponent';
-import { TerrainChunkComponent } from 'shared/components/TerrainChunkComponent';
-import { WallCollisionComponent } from 'shared/components/WallCollisionComponent';
+import { BlockComponent } from '../components/BlockComponent';
+import { ChatMessageComponent } from '../components/ChatMessageComponent';
+import { ChunkRequestComponent } from '../components/ChunkRequestComponent';
+import { CurrentPlayerComponent } from '../components/CurrentPlayerComponent';
+import { InputComponent } from '../components/InputComponent';
+import { InventoryComponent } from '../components/InventoryComponent';
+import { OnGroundComponent } from '../components/OnGroundComponent';
+import { PhysicsComponent } from '../components/PhysicsComponent';
+import { PlayerComponent } from '../components/PlayerComponent';
+import { PositionComponent } from '../components/PositionComponent';
+import { RotationComponent } from '../components/RotationComponent';
+import { TerrainChunkComponent } from '../components/TerrainChunkComponent';
+import { WallCollisionComponent } from '../components/WallCollisionComponent';
 
 export function registerSharedComponents(manager: EntityManager) {
   manager.registerComponentType(new PositionComponent());

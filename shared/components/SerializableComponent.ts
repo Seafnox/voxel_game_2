@@ -1,4 +1,4 @@
-import { AbstractComponent, AbstractComponentData } from 'shared/components/AbstractComponent';
+import { AbstractComponent, AbstractComponentData } from './AbstractComponent';
 
 // Used when serializing component to avoid "dirty" flag being serialized. It is only needed locally at runtime.
 const componentReplacer = (key: string, value: any) => {

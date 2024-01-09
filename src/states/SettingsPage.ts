@@ -1,7 +1,7 @@
-import { HTMLParser } from 'src/HTMLParser';
-import { Page } from 'src/states/Page';
-import { settingsHtml } from 'src/states/html/SettingsHtml';
-import { MenuPage } from 'src/states/MenuPage';
+import { HTMLParser } from '../HTMLParser';
+import { Page } from './Page';
+import { settingsHtml } from './html/SettingsHtml';
+import { MenuPage } from './MenuPage';
 import '../../assets/stylesheets/settings.scss';
 
 export class SettingsPage extends Page {

@@ -1,7 +1,7 @@
-import { BlockId } from 'shared/constants/BlockId';
+import { BlockId } from '../constants/BlockId';
 import { ComponentId } from '../constants/ComponentId';
 import { EntityManager } from '../EntityManager';
-import { SerializableComponent, SerializableComponentData } from 'shared/components/SerializableComponent';
+import { SerializableComponent, SerializableComponentData } from './SerializableComponent';
 
 export interface InventoryComponentData extends SerializableComponentData {
   slots: BlockId[];
