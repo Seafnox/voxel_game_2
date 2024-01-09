@@ -4,6 +4,10 @@ import { Sound } from 'src/Sound';
 
 type ProgressFn = (name: string, percent: number) => void;
 type DoneFn = () => void;
+interface Asset {
+  name: string;
+  url: string;
+}
 
 export class AssetManager {
   private isLoaded = false;
@@ -14,60 +18,44 @@ export class AssetManager {
   private textureLoader: TextureLoader = new TextureLoader();
   private meshLoader: JSONLoader = new JSONLoader();
 
+  private queue = {
+    textures: [] as Asset[],
+    meshes: [] as Asset[],
+    music: [] as Asset[],
+    sounds: [] as Asset[],
+  };
+
+  private assets = {
+    textures: new Map<string, Texture>(),
+    meshes: new Map<string, SkinnedMesh | SkinnedMesh>(),
+    music: new Map<string, HTMLAudioElement>(),
+    sounds: new Map<string, Sound>(),
+  };
+
   // Where and how to direct sounds to
-  private audioContext: AudioContext;
-  private gain: GainNode;
-
-  private queue: {
-    textures: Array<[string, string]>,
-    meshes: Array<[string, string]>,
-    music: Array<[string, string]>,
-    sounds: Array<[string, string]>
-  };
-
-  private assets: {
-    textures: Map<string, Texture>,
-    meshes: Map<string, SkinnedMesh | AnimatedMesh>,
-    music: Map<string, HTMLAudioElement>,
-    sounds: Map<string, Sound>
-  };
-
-  constructor(audioContext: AudioContext, gain: GainNode) {
-    this.audioContext = audioContext;
-    this.gain = gain;
-
-    this.queue = {
-      textures: [],
-      meshes: [],
-      music: [],
-      sounds: [],
-    };
-    this.assets = {
-      textures: new Map<string, Texture>(),
-      meshes: new Map<string, SkinnedMesh | SkinnedMesh>(),
-      music: new Map<string, HTMLAudioElement>(),
-      sounds: new Map<string, Sound>(),
-    };
-  }
+  constructor(
+    private audioContext: AudioContext,
+    private gain: GainNode
+  ) {}
 
   addTexture(name: string, url: string) {
     console.log('addTexture', {name, url});
-    this.queue.textures.push([name, url]);
+    this.queue.textures.push({name, url});
   }
 
   addMesh(name: string, url: string) {
     console.log('addMesh', {name, url});
-    this.queue.meshes.push([name, url]);
+    this.queue.meshes.push({name, url});
   }
 
   addMusic(name: string, url: string) {
     console.log('addMusic', {name, url});
-    this.queue.music.push([name, url]);
+    this.queue.music.push({name, url});
   }
 
   addSound(name: string, url: string) {
     console.log('addSound', {name, url});
-    this.queue.sounds.push([name, url]);
+    this.queue.sounds.push({name, url});
   }
 
   private getQueueLength() {
@@ -113,8 +101,8 @@ export class AssetManager {
       return;
     }
 
-    this.queue.textures.forEach(pair => {
-      let [name, url] = pair;
+    this.queue.textures.forEach(asset => {
+      let {name, url} = asset;
       this.textureLoader.load(url, texture => {
         texture.minFilter = NearestFilter;
         texture.magFilter = NearestFilter;
@@ -136,8 +124,8 @@ export class AssetManager {
       return;
     }
 
-    this.queue.meshes.forEach(pair => {
-      let [name, url] = pair;
+    this.queue.meshes.forEach(asset => {
+      let {name, url} = asset;
       this.meshLoader.load(url, (geometry, materials) => {
         let material = new MeshBasicMaterial({
           map: this.getTexture(name),
@@ -166,11 +154,12 @@ export class AssetManager {
       return;
     }
 
-    this.queue.music.forEach(pair => {
-      let [name, url] = pair;
+    this.queue.music.forEach(asset => {
+      let {name, url} = asset;
 
-      let el = document.createElement('audio');
-      el.setAttribute('src', url);
+      let el = new Audio();
+      el.src = url;
+      el.muted = false;
       el.load();
 
       let canPlayThrough = () => {
@@ -196,8 +185,8 @@ export class AssetManager {
       return;
     }
 
-    this.queue.sounds.forEach(pair => {
-      let [name, url] = pair;
+    this.queue.sounds.forEach(asset => {
+      let {name, url} = asset;
       let req = new XMLHttpRequest();
       req.responseType = 'arraybuffer';
       req.addEventListener('load', () => {

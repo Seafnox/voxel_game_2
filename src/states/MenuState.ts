@@ -69,10 +69,16 @@ export class MenuState extends State {
       this.transitionTo(new SettingsState());
     });
 
-    let m = this.assetManager.getMusic('music');
-    m.loop = true;
-    m.volume = this.settings.musicVolume;
-    m.play();
+    let audio = this.assetManager.getMusic('music');
+    audio.loop = true;
+    audio.volume = this.settings.musicVolume;
+    audio.play().catch(e => {
+      window.addEventListener('click', () => {
+        audio.play();
+      }, {
+        once: true
+      });
+    });
   }
 
   onExit() {
