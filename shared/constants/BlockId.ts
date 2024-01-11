@@ -4,5 +4,9 @@ export const enum BlockId {
   Grass,
   Stone,
   Sand,
-  Wood
+  Wood,
+  Clay,
+  Glass,
+  Logs,
+  Water,
 }
