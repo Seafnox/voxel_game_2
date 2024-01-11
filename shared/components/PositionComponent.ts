@@ -1,8 +1,8 @@
-import { TransferPosition } from 'shared/constants/TransferPosition';
+import { TransferPosition } from '../constants/TransferPosition';
 import { ComponentId } from '../constants/ComponentId';
-import { globalToChunkPosition } from 'shared/helpers/globalToChunkPosition';
+import { globalToChunkPosition } from '../helpers/globalToChunkPosition';
 import { Position } from '../Position';
-import { SerializableComponent, SerializableComponentData } from 'shared/components/SerializableComponent';
+import { SerializableComponent, SerializableComponentData } from './SerializableComponent';
 
 export interface PositionComponentData extends SerializableComponentData, Position {}
 

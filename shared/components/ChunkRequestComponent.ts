@@ -1,5 +1,5 @@
 import { ComponentId } from '../constants/ComponentId';
-import { SerializableComponent, SerializableComponentData } from 'shared/components/SerializableComponent';
+import { SerializableComponent, SerializableComponentData } from './SerializableComponent';
 
 export interface ChunkRequestComponentData extends SerializableComponentData {
   chunks: string[];

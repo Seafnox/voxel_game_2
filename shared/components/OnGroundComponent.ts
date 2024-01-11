@@ -1,5 +1,5 @@
 import { ComponentId } from '../constants/ComponentId';
-import { AbstractComponent, AbstractComponentData } from 'shared/components/AbstractComponent';
+import { AbstractComponent, AbstractComponentData } from './AbstractComponent';
 
 export interface OnGroundComponentData extends AbstractComponentData {
   canJump: boolean;

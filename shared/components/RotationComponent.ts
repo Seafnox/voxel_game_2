@@ -1,6 +1,6 @@
 import { ComponentId } from '../constants/ComponentId';
 import { Position } from '../Position';
-import { SerializableComponent, SerializableComponentData } from 'shared/components/SerializableComponent';
+import { SerializableComponent, SerializableComponentData } from './SerializableComponent';
 
 export interface RotationComponentData extends SerializableComponentData, Position {}
 

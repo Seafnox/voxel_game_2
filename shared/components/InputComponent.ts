@@ -1,7 +1,7 @@
-import { TransferPosition } from 'shared/constants/TransferPosition';
+import { TransferPosition } from '../constants/TransferPosition';
 import { ComponentId } from '../constants/ComponentId';
 import { Direction } from '../constants/Direction';
-import { SerializableComponent, SerializableComponentData } from 'shared/components/SerializableComponent';
+import { SerializableComponent, SerializableComponentData } from './SerializableComponent';
 
 export interface InputComponentData extends SerializableComponentData {
   moveForward: boolean;
