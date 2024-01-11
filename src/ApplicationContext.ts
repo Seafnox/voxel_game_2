@@ -24,8 +24,8 @@ export class ApplicationContext {
   });
   pageManager: PageManager;
   assetManager = new AssetManager(this.audioContext, this.gain);
-  world?: World;
-  server?: Server;
+  private _world?: World;
+  private _server?: Server;
 
   constructor() {
     // One audio context and gain node is passed to all sounds.
@@ -34,11 +34,25 @@ export class ApplicationContext {
     this.pageManager = new PageManager(this);
   }
 
+  get world(): World {
+    if (!this._world) {
+      throw new Error('World not initialized');
+    }
+    return this._world;
+  }
+
+  get server(): Server {
+    if (!this._server) {
+      throw new Error('Server not initialized');
+    }
+    return this._server;
+  }
+
   startServer(guiNode: HTMLElement) {
-    this.server = new Server(this, this.settings.serverAddress, () => {
+    this._server = new Server(this, this.settings.serverAddress, () => {
       console.log('WS connect');
       this.initRenderer();
-      this.world = new World(this, guiNode);
+      this._world = new World(this, guiNode);
       this.settings.isRunning = true;
 
       document.body.appendChild(guiNode);

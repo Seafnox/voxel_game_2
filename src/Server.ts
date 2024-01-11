@@ -9,7 +9,7 @@ import { bufferToObject } from './utils/bufferToObject';
 
 export class Server {
   url: string;
-  ws: WebSocket;
+  private ws: WebSocket;
   eventEmitter: ComponentEventEmitter<ComponentMap> = new ComponentEventEmitter();
 
   constructor(
@@ -97,5 +97,10 @@ export class Server {
 
   private onError(evt: Event) {
     console.log('Socket error', evt);
+  }
+
+  send(buffer: ArrayBuffer) {
+    // TODO change to send into webWorker
+    this.ws.send(buffer);
   }
 }
