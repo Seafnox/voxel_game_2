@@ -55,7 +55,7 @@ export class PlayerInitializer extends Initializer<ServerComponentMap> {
       pos.z = 0;
       em.addComponent(blockEntity, pos);
 
-      inventory.slots[i] = blockEntity;
+      inventory.slots[i] = block.kind;
       netComponent.pushEntity(em.serializeEntity(blockEntity));
     }
     em.addComponent(entity, inventory);

@@ -28,10 +28,12 @@ import { ChunkRequestInitializer } from './initializers/ChunkRequestInitializer'
 import { ChunkRequestSystem } from './systems/ChunkRequestSystem';
 import { PlayerInitializer } from './initializers/PlayerInitializer';
 
-export class World extends BaseWorld {
+export class WorldServerSide extends BaseWorld {
   actionManager = new ServerActionManager();
 
-  constructor(server: VoxelGameServerSide) {
+  constructor(
+    server: VoxelGameServerSide
+  ) {
     super(new UtilsManager(v4, () => performance.now(), console));
 
     registerServerComponents(this.entityManager);

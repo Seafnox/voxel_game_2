@@ -18,7 +18,7 @@ export class NetworkSystem extends System {
 
       // Player has disconnected. Remove entity and do not attempt to send on socket.
       if (netComponent.isClosed()) {
-        console.log('Socket closed', entity);
+        console.log('NWS Socket closed', entity);
         this.entityManager.removeEntity(entity);
         return;
       }
