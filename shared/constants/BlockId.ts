@@ -10,3 +10,16 @@ export const enum BlockId {
   Logs,
   Water,
 }
+
+export const BlockTypes = [
+  BlockId.Air,
+  BlockId.Dirt,
+  BlockId.Grass,
+  BlockId.Stone,
+  BlockId.Sand,
+  BlockId.Wood,
+  BlockId.Clay,
+  BlockId.Glass,
+  BlockId.Logs,
+  BlockId.Water,
+]
