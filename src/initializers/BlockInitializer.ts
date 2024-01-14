@@ -5,8 +5,8 @@ import { EntityManager } from '@block/shared/EntityManager';
 import { ComponentMap } from '@block/shared/EntityMessage';
 import { Initializer } from '@block/shared/Initializer';
 import { ShaderMaterial, SkinnedMesh } from 'three';
-import { buildBlockGeometry } from 'utils/buildBlockGeometry';
 import { MeshComponent } from '../components/MeshComponent';
+import { buildBlockGeometry } from '../utils/buildBlockGeometry';
 
 // TODO edit any
 export class BlockInitializer extends Initializer<any> {
@@ -18,6 +18,7 @@ export class BlockInitializer extends Initializer<any> {
   }
 
   initialize(entity: string, components: Partial<ComponentMap>) {
+    if (!components[ComponentId.Block]) return;
     let blockComponent = this.entityManager.addComponentFromData(
       entity,
       ComponentId.Block,

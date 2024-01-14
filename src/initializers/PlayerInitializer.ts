@@ -3,15 +3,15 @@ import { ComponentId } from '@block/shared/constants/ComponentId';
 import { EntityManager } from '@block/shared/EntityManager';
 import { ComponentMap } from '@block/shared/EntityMessage';
 import { Initializer } from '@block/shared/Initializer';
-import { AnimatedMesh } from 'AnimatedMesh';
-import { AnimatedMeshComponent } from 'components/MeshComponent';
-import { PlayerChunkComponent } from 'components/PlayerChunkComponent';
-import { PlayerSelectionComponent } from 'components/PlayerSelectionComponent';
 import {
   BoxBufferGeometry,
   ShaderMaterial,
   SkinnedMesh,
 } from 'three';
+import { AnimatedMesh } from '../AnimatedMesh';
+import { AnimatedMeshComponent } from '../components/MeshComponent';
+import { PlayerChunkComponent } from '../components/PlayerChunkComponent';
+import { PlayerSelectionComponent } from '../components/PlayerSelectionComponent';
 import { NetworkSystem } from '../systems/NetworkSystem';
 import { AssetManager } from '../three/AssetManager';
 

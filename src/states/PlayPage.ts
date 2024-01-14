@@ -6,7 +6,7 @@ import { MenuPage } from './MenuPage';
 
 export class PlayPage extends Page {
   // TODO create GuiManager with controlling through state. remove Nodes from state
-  private guiNode: Element;
+  private guiNode: HTMLElement;
   private stats: Stats;
 
   // world: World;
@@ -43,7 +43,7 @@ export class PlayPage extends Page {
 
   // TODO create server intialization manager with subscribe
   onEnter() {
-    this.context?.startServer();
+    this.context?.startServer(this.guiNode!);
     this.registerCanvasEvents();
   }
 

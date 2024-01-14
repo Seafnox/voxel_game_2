@@ -1,5 +1,4 @@
 import { ComponentEventEmitter } from '@block/shared/ComponentEventEmitter';
-import { AbstractComponent } from '@block/shared/components/AbstractComponent';
 import { ComponentId, componentNames } from '@block/shared/constants/ComponentId';
 import { MessageType } from '@block/shared/constants/MessageType';
 import { EntityMessage, ComponentMap } from '@block/shared/EntityMessage';
@@ -74,7 +73,7 @@ export class Server {
           console.log('\tTerrain', msgLength, entity, {x, y, z});
           console.log('\tComponents', ComponentId[ComponentId.TerrainChunk]);
 
-          let componentsObj: Partial<Record<ComponentId, AbstractComponent<any>>> = {};
+          let componentsObj: Partial<ComponentMap> = {};
           componentsObj[ComponentId.TerrainChunk] = component;
           this.eventEmitter.emit(ComponentId.TerrainChunk, entity, componentsObj);
           break;
