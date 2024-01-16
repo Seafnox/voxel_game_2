@@ -23,8 +23,7 @@ export const enum SystemOrder {
   InventoryUI,
   DebugText,
 
-  // Do not put any systems after these three.
   Network,
-  Database,
+  // Do not put any systems after these.
   CleanComponents
 }

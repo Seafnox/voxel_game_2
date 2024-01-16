@@ -1,15 +1,12 @@
 import { ComponentId } from '@block/shared/constants/ComponentId';
 import { System } from '@block/shared/System';
 import { NetworkComponent } from '../components/NetworkComponent';
-import { VoxelGameServerSide } from '../VoxelGameServerSide';
 import { EntityManager } from '@block/shared/EntityManager';
 
 export class NetworkSystem extends System {
-  server: VoxelGameServerSide;
 
-  constructor(em: EntityManager, server: VoxelGameServerSide) {
+  constructor(em: EntityManager) {
     super(em);
-    this.server = server;
   }
 
   update(dt: number): void {

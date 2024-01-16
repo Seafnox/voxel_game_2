@@ -1,29 +1,34 @@
 import { AbstractConnectionClient } from '@block/server/connection/AbstractConnectionClient';
 import { AbstractConnectionService } from '@block/server/connection/AbstractConnectionService';
 import { ConnectionEventType } from '@block/server/connection/ConnectionEventType';
+import { AbstractDataStoreService } from '@block/server/systems/database/AbstractDataStoreService';
 import { AbstractAction } from '@block/shared/actions/AbstractAction';
-import { ComponentEventEmitter } from '@block/shared/ComponentEventEmitter';
 import { PlayerComponent } from '@block/shared/components/playerComponent';
 import { ActionId } from '@block/shared/constants/ActionId';
 import { ComponentId } from '@block/shared/constants/ComponentId';
 import { NetworkComponent } from './components/NetworkComponent';
-import { ServerComponentMap } from './entityManager/serverEntityMessage';
 import { WorldServerSide } from './WorldServerSide';
 
 export class VoxelGameServerSide {
   world: WorldServerSide;
-  eventEmitter = new ComponentEventEmitter<ServerComponentMap>();
 
   private accumulator = 0.0;
   private expectedDt = 1.0 / 30.0;
 
   constructor(
     private connectionService: AbstractConnectionService,
+    private dataStoreService: AbstractDataStoreService,
   ) {
-    this.world = new WorldServerSide(this);
+    this.world = new WorldServerSide();
     this.startGameTick();
 
     this.connectionService.on(ConnectionEventType.NewPlayer, this.addPlayer.bind(this));
+    // Create DB system, restore world / entity manager, and then start listening for changes.
+    this.dataStoreService.restore(this.world.entityManager, () => {
+      console.log('Loaded entities from database.');
+      this.dataStoreService.registerEntityEvents(this.world.entityManager);
+    });
+
   }
 
   startGameTick(lastTime: number = performance.now()) {
@@ -42,6 +47,7 @@ export class VoxelGameServerSide {
 
   tick(dt: number) {
     this.world.tick(dt);
+    this.dataStoreService.update(dt, this.world.entityManager);
   }
 
   static sendAction(netComponent: NetworkComponent, actionId: ActionId, action: AbstractAction) {
@@ -70,7 +76,7 @@ export class VoxelGameServerSide {
     let playerEntity = this.world.entityManager.createEntity('player');
 
     let netComponent = new NetworkComponent();
-    netComponent.addEventEmitter(this.eventEmitter);
+    netComponent.addEventEmitter(this.world.eventEmitter);
     netComponent.addConnectionClient(connectionClient, playerEntity);
     this.world.entityManager.addComponent(playerEntity, netComponent);
     this.world.entityManager.addComponent(playerEntity, new PlayerComponent());
