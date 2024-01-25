@@ -3,7 +3,7 @@ import { WebSocketServer, WebSocket } from 'ws';
 import { AbstractConnectionService } from './AbstractConnectionService';
 import { WebSocketConnectionClient } from './WebSocketConnectionClient';
 
-const enum WebSocketServerEventType {
+const enum WebSocketEventType {
   Connection = 'connection',
   Listening = 'listening',
   Error = 'error',
@@ -19,10 +19,10 @@ export class WebSocketConnectionService extends AbstractConnectionService {
 
   constructor() {
     super();
-    this.webSocket.on(WebSocketServerEventType.Connection, this.onConnect.bind(this));
-    this.webSocket.on(WebSocketServerEventType.Listening, this.onReady.bind(this));
-    this.webSocket.on(WebSocketServerEventType.Error, this.onError.bind(this));
-    this.webSocket.on(WebSocketServerEventType.Close, this.onClose.bind(this));
+    this.webSocket.on(WebSocketEventType.Connection, this.onConnect.bind(this));
+    this.webSocket.on(WebSocketEventType.Listening, this.onReady.bind(this));
+    this.webSocket.on(WebSocketEventType.Error, this.onError.bind(this));
+    this.webSocket.on(WebSocketEventType.Close, this.onClose.bind(this));
   }
 
 
